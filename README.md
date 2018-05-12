@@ -58,6 +58,7 @@ void LED_Init(){
 }
 
 void LED_DispRed(int val){
+
 	// RED : G14
 	int *GPIOG_ODR;
 	GPIOG_ODR = (int*) 0x40021814;
@@ -71,6 +72,7 @@ void LED_DispRed(int val){
 }
 
 void LED_DispGreen(int val){
+
 	// GREEN : G13
 	int *GPIOG_ODR;
 	GPIOG_ODR = (int*) 0x40021814;
@@ -80,8 +82,7 @@ void LED_DispGreen(int val){
 	}
 	else {
 		*GPIOG_ODR &= 0xDFFF;
-	}
-		
+	}		
 }
 
 
