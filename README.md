@@ -3,19 +3,18 @@
 #include "stm32f4xx_hal_conf.h"
 #include "stm32f429_Discovery_conf.h"
 
-// for #10
 TIM_HandleTypeDef monTimer;
-// for #13 : TIM2 Handler global variable
+// TIM2 Handler global variable
 int LED_Tim2Count = 0;
 
 void LED_Init(){
 	
-	// #02 enable ports
+	// enable ports
 	int *RCC_AHB1ENR;
 	RCC_AHB1ENR = (int*) 0x40023830;
 	*RCC_AHB1ENR |= 1<<6;
 	
-	// #03 configuration of G13
+	// configuration of G13
 	int *GPIOG_MODER;
 	GPIOG_MODER = (int*) 0x40021800;
 	*GPIOG_MODER &= 0xF3FFFFFF;
@@ -33,7 +32,7 @@ void LED_Init(){
 	GPIOG_PUPDR = (int*) 0x4002180C;
 	*GPIOG_PUPDR &= 0xF3FFFFFF;
 		
-	// #04 configuration of G14
+	// configuration of G14
 	GPIO_InitTypeDef GPIO_InitStruct;
 	GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -41,12 +40,12 @@ void LED_Init(){
 	GPIO_InitStruct.Pin = GPIO_PIN_14;
 	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 	
-	// #09 enable Timer2
+	// enable Timer2
 	int *RCC_APB1ENR;
 	RCC_APB1ENR= (int*) 0x40023840;
 	*RCC_APB1ENR |= 1 ;
 	
-	// #12 config IT TIM2	: enable interrupt
+	// config IT TIM2 : enable interrupt
 	monTimer.Instance = TIM2; 
 	monTimer.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; //DIV2 ET DIV4
 	monTimer.Init.CounterMode = TIM_COUNTERMODE_UP; 
@@ -57,8 +56,9 @@ void LED_Init(){
 	HAL_TIM_Base_Start_IT(&monTimer);
 	
 }
+
 void LED_DispRed(int val){
-	// #05 RED : G14
+	// RED : G14
 	int *GPIOG_ODR;
 	GPIOG_ODR = (int*) 0x40021814;
 	
@@ -71,7 +71,7 @@ void LED_DispRed(int val){
 }
 
 void LED_DispGreen(int val){
-	// #05 GREEN : G13
+	// GREEN : G13
 	int *GPIOG_ODR;
 	GPIOG_ODR = (int*) 0x40021814;
 	
@@ -86,7 +86,7 @@ void LED_DispGreen(int val){
 
 
 void TIM2_IRQHandler(void){
-	// Don't forget to erase request #13
+	
 	__HAL_TIM_CLEAR_IT(&monTimer, TIM_IT_UPDATE); 
 	LED_Tim2Count++;
 	// #13 Make the LED blink!
