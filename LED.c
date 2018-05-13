@@ -112,8 +112,8 @@ void LED_SetFreqGreen(int f){
 	
 	//config IT TIM3 : enable interrupt
 	HAL_TIM_Base_Start_IT(&Tim3); 
-  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
-  HAL_NVIC_SetPriority(TIM3_IRQn, 2, 0);
-  HAL_NVIC_EnableIRQ(TIM3_IRQn);
+  	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+  	HAL_NVIC_SetPriority(TIM3_IRQn, 2, 0);
+  	HAL_NVIC_EnableIRQ(TIM3_IRQn);
 	
   }
