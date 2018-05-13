@@ -42,7 +42,7 @@ void GENE_Init(){
 	EXTI->IMR|=1;
 	
 	HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
-  NVIC_EnableIRQ(EXTI0_IRQn);
+  	NVIC_EnableIRQ(EXTI0_IRQn);
 	
 }
 
